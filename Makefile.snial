@@ -1,0 +1,19 @@
+
+all:
+	make -C slowhand -f Makefile.snial
+#	make -C toolbox -f Makefile.snial
+#	make -C crossnull -f Makefile.snial
+	make -C crossfb -f Makefile.snial
+	make -C crossmac -f Makefile.snial
+#	make -C crossx11 -f Makefile.snial
+	make -i -C examples -f Makefile.snial
+	
+clean:
+	make -C slowhand -f Makefile.snial clean
+	make -C toolbox -f Makefile.snial clean
+	make -C crossnull -f Makefile.snial clean
+	make -C crossfb -f Makefile.snial clean
+	make -C crossmac -f Makefile.snial clean
+	make -C crossx11 -f Makefile.snial clean
+	make -C examples -f Makefile.snial clean
+	rm -f */*.o */*.a *.a

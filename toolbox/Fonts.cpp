@@ -1,0 +1,26 @@
+
+#include <iostream>
+
+
+extern "C" {
+
+
+#include <Fonts.h>
+
+
+#include "../crossroads.h"
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Fonts
+////////////////////////////////////////////////////////////////////////////////
+
+
+void InitFonts() {
+  fprintf(stderr,"(InitFonts)\n");
+  open_libs(0,NULL);
+  // NOTE: Ok to skip...
+}
+
+
+}

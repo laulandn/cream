@@ -1,0 +1,1 @@
+/* * $Id: start-ap.h,v 1.5 1997/04/08 17:26:47 hempling Exp $ * (c) Copyright 1992-1997 Metrowerks Corporation  All Rights Reserved. *  *  */#ifndef __START_AP_H#define __START_AP_HLg_private LG_APP_INFO_BLOCK lg_latitude_app_info;#endif /* __START_AP_H */

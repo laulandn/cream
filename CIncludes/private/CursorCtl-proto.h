@@ -1,0 +1,1 @@
+/* *     $Id: CursorCtl-proto.h,v 1.7 1997/04/08 17:25:15 hempling Exp $ *     CursorCtl-proto.h -- MACHINE GENERATED -- DO NOT EDIT *//* * (c) Copyright 1992-1997 Metrowerks Corporation  All Rights Reserved. *  *  */#ifndef __CURSORCTL_PROTO_H__#define __CURSORCTL_PROTO_H__#include <latitude.h>#include <CursorCtl.h>#endif /* __CURSORCTL_PROTO_H__ */

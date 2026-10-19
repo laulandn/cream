@@ -1,0 +1,107 @@
+
+CC=m68k-apple-macos-gcc
+CXX=m68k-apple-macos-g++
+#CC=powerpc-apple-macos-gcc
+#CXX=powerpc-apple-macos-g++
+
+CFLAGS=-include override.h
+CFLAGS+=-I../slowhand -DNO_QD_TRAPS=1
+
+LDFLAGS=-L.. ../crossfb/*.o ../slowhand/*.o -lm
+
+
+OBJS=$(subst .c,.o,$(wildcard *.c)) $(subst .cpp,.o,$(wildcard *.cpp))
+
+
+.c.o:
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+.cpp.o:
+	$(CXX) $(CFLAGS) -c -o $@ $<
+
+
+all: $(OBJS) SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM
+
+
+SillyBalls:	SillyBalls.o
+	$(CXX) -o SillyBalls.code.bin SillyBalls.o $(LDFLAGS)
+	../bin2app.sh SillyBalls
+#	$(CXX) -o SillyBalls $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh SillyBalls
+
+MWSillyBalls:	MWSillyBalls.o
+	$(CXX) -o MWSillyBalls.code.bin MWSillyBalls.o $(LDFLAGS)
+	../bin2app.sh MWSillyBalls
+#	$(CXX) -o MWSillyBalls $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh MWSillyBalls
+
+TubeTest:	TubeTest.o
+	$(CXX) -o TubeTest.code.bin TubeTest.o $(LDFLAGS)
+	../bin2app.sh TubeTest
+#	$(CXX) -o TubeTest $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh TubeTest
+
+LinesSilly:	LinesSilly.o
+	$(CXX) -o LinesSilly.code.bin LinesSilly.o $(LDFLAGS)
+	../bin2app.sh LinesSilly
+#	$(CXX) -o LinesSilly $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh LinesSilly
+
+maclines:	maclines.o
+	$(CXX) -o maclines.code.bin maclines.o $(LDFLAGS)
+	../bin2app.sh maclines
+#	$(CXX) -o maclines $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh maclines
+
+Count:	Count.o
+	$(CXX) -o Count.code.bin Count.o $(LDFLAGS)
+	../bin2app.sh Count
+#	$(CXX) -o Count $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh Count
+
+Sample:	Sample.o
+	$(CXX) -o Sample.code.bin Sample.o $(LDFLAGS)
+	../bin2app.sh Sample
+#	$(CXX) -o Sample $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh Sample
+
+TestPerf:	TestPerf.o
+	$(CXX) -o TestPerf.code.bin TestPerf.o $(LDFLAGS)
+	../bin2app.sh TestPerf
+#	$(CXX) -o TestPerf $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh TestPerf
+
+MPWTest:	MPWTest.o
+	$(CXX) -o MPWTest.code.bin MPWTest.o $(LDFLAGS)
+	../bin2app.sh MPWTest
+#	$(CXX) -o MPWTest $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh MPWTest
+
+DoubleBuffer:	DoubleBuffer.o
+	$(CXX) -o DoubleBuffer.code.bin DoubleBuffer.o $(LDFLAGS)
+	../bin2app.sh DoubleBuffer
+#	$(CXX) -o DoubleBuffer $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh DoubleBuffer
+
+SndForEver:	SndForEver.o
+	$(CXX) -o SndForEver.code.bin SndForEver.o $(LDFLAGS)
+	../bin2app.sh SndForEver
+#	$(CXX) -o SndForEver $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh SndForEver
+
+TestGestaltQD:	TestGestaltQD.o
+	$(CXX) -o TestGestaltQD.code.bin TestGestaltQD.o $(LDFLAGS)
+	../bin2app.sh TestGestaltQD
+#	$(CXX) -o TestGestaltQD $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh TestGestaltQD
+
+TestGestaltVM:	TestGestaltVM.o
+	$(CXX) -o TestGestaltVM.code.bin TestGestaltVM.o $(LDFLAGS)
+	../bin2app.sh TestGestaltVM
+#	$(CXX) -o TestGestaltVM $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh TestGestaltVM
+
+
+clean:
+	rm -f *.o *.bin *.pef *.APPL *.dsk *.gdb 
+	rm -f SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM

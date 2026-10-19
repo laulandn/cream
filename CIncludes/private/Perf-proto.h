@@ -1,0 +1,1 @@
+/* *     $Id: Perf-proto.h,v 1.7 1997/04/08 17:25:54 hempling Exp $ *     Perf-proto.h -- MACHINE GENERATED -- DO NOT EDIT *//* * (c) Copyright 1992-1997 Metrowerks Corporation  All Rights Reserved. *  *  */#ifndef __PERF_PROTO_H__#define __PERF_PROTO_H__#include <latitude.h>#include <Perf.h>#endif /* __PERF_PROTO_H__ */

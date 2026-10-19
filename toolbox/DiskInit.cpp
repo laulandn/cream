@@ -1,0 +1,23 @@
+
+#include <iostream>
+
+
+extern "C" {
+
+
+#include <DiskInit.h>
+
+
+////////////////////////////////////////////////////////////////////////////////
+// DiskInit
+////////////////////////////////////////////////////////////////////////////////
+
+
+pascal short DIBadMount(Point where, long evtMessage)
+{
+  fprintf(stderr,"DIBadMount() not implemented!\n");
+  return 0;
+}
+
+
+}

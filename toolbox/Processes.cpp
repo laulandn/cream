@@ -1,0 +1,27 @@
+
+#include <iostream>
+
+
+extern "C" {
+
+
+#include <Processes.h>
+
+
+#include "../crossroads.h"
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Processes
+////////////////////////////////////////////////////////////////////////////////
+
+
+void ExitToShell() 
+{
+  fprintf(stderr,"(ExitToShell)\n");
+  fflush(stderr);
+  exit(EXIT_FAILURE);
+}
+
+
+};

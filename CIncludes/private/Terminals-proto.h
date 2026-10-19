@@ -1,0 +1,1 @@
+/* *     $Id: Terminals-proto.h,v 1.7 1997/04/08 17:26:15 hempling Exp $ *     Terminals-proto.h -- MACHINE GENERATED -- DO NOT EDIT *//* * (c) Copyright 1992-1997 Metrowerks Corporation  All Rights Reserved. *  *  */#ifndef __TERMINALS_PROTO_H__#define __TERMINALS_PROTO_H__#include <latitude.h>#include <Terminals.h>#endif /* __TERMINALS_PROTO_H__ */

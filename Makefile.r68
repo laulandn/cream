@@ -1,0 +1,19 @@
+
+all:
+	make -C slowhand -f Makefile.r68
+#	make -C toolbox -f Makefile.r68
+#	make -C crossnull -f Makefile.r68
+	make -C crossfb -f Makefile.r68
+	make -C crossmac -f Makefile.r68
+#	make -C crossx11 -f Makefile.r68
+	make -i -C examples -f Makefile.r68
+	
+clean:
+	make -C slowhand -f Makefile.r68 clean
+	make -C toolbox -f Makefile.r68 clean
+	make -C crossnull -f Makefile.r68 clean
+	make -C crossfb -f Makefile.r68 clean
+	make -C crossmac -f Makefile.r68 clean
+	make -C crossx11 -f Makefile.r68 clean
+	make -C examples -f Makefile.r68 clean
+	rm -f */*.o */*.a *.a
