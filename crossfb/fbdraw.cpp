@@ -15,6 +15,9 @@ extern "C" {
 #include "fb.h"
 
 
+extern unsigned int shCurX,shCurY;
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -42,15 +45,14 @@ extern "C" {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-unsigned int fbCurX=0,fbCurY=0;
-unsigned int fbForeColor=1,fbBackColor=0;
-
 char *fbPixels=NULL;
-unsigned int fbPixelByteSize;
-unsigned int fbMinBlit=1,fbMaxBlit=1;
+unsigned int fbPixelByteSize=0;
+unsigned int fbMinBlit=0,fbMaxBlit=0;
 
 unsigned int fbRowBytes=0;
-unsigned int fbWidth=0,fbHeight=0,fbDepth=1;
+unsigned int fbWidth=0,fbHeight=0,fbDepth=0;
+
+unsigned int fbForeColor=1,fbBackColor=0;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -88,7 +90,7 @@ void write_pixel(void *w,unsigned int x,unsigned int y)
     exit(5);
     return;    
   }
-  fbCurX=x;  fbCurY=y;
+  shCurX=x;  shCurY=y;
   write_pixelc(w,x,y,fbForeColor);
 }
 
@@ -101,22 +103,20 @@ void write_pixelc(void *w,unsigned int x,unsigned int y,long c)
     exit(5);
     return;    
   }
-  fbCurX=x;  fbCurY=y;
-  //
-  unsigned int minBlit=1;
-  unsigned int maxBlit=fbRowBytes;
-  unsigned int tx=(x/minBlit)*maxBlit;
-  unsigned int offset=tx+(y*(fbRowBytes*fbWidth));
+  shCurX=x;  shCurY=y;
   //
   if(x>(unsigned int)fbWidth) x=fbWidth-1;
   if(y>(unsigned int)fbHeight) y=fbHeight-1;
-  if(offset>fbPixelByteSize) { return; }
+  //
+  unsigned int tx=(x/fbMinBlit)*fbMaxBlit;
+  unsigned int offset=tx+(y*fbRowBytes);
+  if(offset>fbPixelByteSize) { fprintf(stderr,"overrun!\n"); return; }
   //
   /* TODO: Very BAD!  Temporary... */
   unsigned char *dest=(unsigned char *)((long)fbPixels+offset);
   dest[2]=fbDrawGetRGBRed24(fbForeColor);
-  dest[1]=fbDrawGetRGBGreen24(fbForeColor);
-  dest[0]=fbDrawGetRGBBlue24(fbForeColor);
+  if(fbMaxBlit>1) dest[1]=fbDrawGetRGBGreen24(fbForeColor);
+  if(fbMaxBlit>2) dest[0]=fbDrawGetRGBBlue24(fbForeColor);
 }
 
 
@@ -129,14 +129,12 @@ long read_pixel(void *w,unsigned int x,unsigned int y)
     return 0;    
   }
   //
-  unsigned int minBlit=1;
-  unsigned int maxBlit=fbRowBytes;
-  unsigned int tx=(x/minBlit)*maxBlit;
-  unsigned int offset=tx+(y*(fbRowBytes*fbWidth));
-  //
   if(x>(unsigned int)fbWidth) x=fbWidth-1;
   if(y>(unsigned int)fbHeight) y=fbHeight-1;
-  if(offset>fbPixelByteSize) { return 0; }
+  //
+  unsigned int tx=(x/fbMinBlit)*fbMaxBlit;
+  unsigned int offset=tx+(y*fbRowBytes);
+  if(offset>fbPixelByteSize) { fprintf(stderr,"overrun!\n"); return 0; }
   //
   /* TODO: Very BAD!  Temporary... */
   unsigned char *src=(unsigned char *)((long)fbPixels+offset);
@@ -152,7 +150,7 @@ void draw_line(void *w,unsigned int x1,unsigned int y1,unsigned int x2, unsigned
     exit(5);
     return;    
   }
-  fbCurX=x2;  fbCurY=y2;
+  shCurX=x2;  shCurY=y2;
   //
   default_draw_line(w,x1,y1,x2,y2);
 }
@@ -166,7 +164,7 @@ void draw_box(void *w,unsigned int x,unsigned int y,unsigned int wide,unsigned i
     exit(5);
     return;    
   }
-  fbCurX=x;  fbCurY=y;
+  shCurX=x;  shCurY=y;
   default_draw_box(w,x,y,wide,high);
  }
 
@@ -179,7 +177,7 @@ void draw_circle(void *w,unsigned int x,unsigned int y,unsigned int r)
     exit(5);
     return;    
   }
-  fbCurX=x;  fbCurY=y;
+  shCurX=x;  shCurY=y;
   //
   default_draw_circle(w,x,y,r);
 }

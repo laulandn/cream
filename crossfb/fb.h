@@ -2,12 +2,17 @@
 #define __FB_H__
 
 
+extern "C" {
+
+
 extern char *fbPixels;
 extern unsigned int fbPixelByteSize;
 extern unsigned int fbMinBlit,fbMaxBlit;
 
 extern unsigned int fbRowBytes;
 extern unsigned int fbWidth,fbHeight,fbDepth;
+
+extern unsigned int fbForeColor,fbBackColor;
 
 
 #ifdef SNIAL
@@ -26,6 +31,9 @@ const unsigned short gColorPalette[16]={
 #define ModeSet(aMode) gVidModeSet(aMode)
 
 #endif
+
+
+};
 
 
 #endif

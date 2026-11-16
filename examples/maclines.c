@@ -110,6 +110,18 @@ int main(int argc, char **argv)
   InitCursor();
   theWindowRect=qd.screenBits.bounds;
   //myCarbon_printrect("theWindowRect",&theWindowRect);
+#ifdef NO_COLOR_QUICKDRAW
+  theWindowPtr=NewWindow(
+    nil,
+    &theWindowRect,
+    "\pmacMoire",
+    true,
+    documentProc,
+    (WindowPtr)-1,
+    false,
+    0
+  );    
+#else
   theWindowPtr=NewCWindow(
     nil,
     &theWindowRect,
@@ -120,6 +132,7 @@ int main(int argc, char **argv)
     false,
     0
   );    
+#endif
   SetPort(theWindowPtr);
   drawMoire();
   // TODO: Should have an actual event loop here!

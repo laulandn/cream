@@ -122,12 +122,22 @@ void createWindows()
 	SetRect( &rect, WLEFT, WTOP, WLEFT + WWIDTH, WTOP + WHEIGHT );
 	
 	OffsetRect( &rect, -((WWIDTH + 10) / 2), 0 );
+#ifdef NO_COLOR_QUICKDRAW
+	gCWindow = NewWindow( 0L, &rect, "\pBand Copying the Sequel", true, documentProc,
+							(WindowPtr)-1L, false, 0L );
+#else
 	gCWindow = NewCWindow( 0L, &rect, "\pBand Copying the Sequel", true, documentProc,
 							(WindowPtr)-1L, false, 0L );
+#endif
 	
 	OffsetRect( &rect, WWIDTH + 10, 0 );
+#ifdef NO_COLOR_QUICKDRAW
+	gWindow = NewWindow( 0L, &rect, "\pBandCopying ON - Padding OFF", true, documentProc,
+							(WindowPtr)-1L, true, 0L );
+#else
 	gWindow = NewCWindow( 0L, &rect, "\pBandCopying ON - Padding OFF", true, documentProc,
 							(WindowPtr)-1L, true, 0L );
+#endif
 							
 	SetPort( gCWindow );
 }

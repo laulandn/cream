@@ -6,7 +6,7 @@
 ** MPW 3.0 C source to marquee!
 */
 
-#include <QuickDraw.h>
+#include <MyQuickdraw.h>
 #include <Events.h>
 #include <Fonts.h>
 #include <Menus.h>

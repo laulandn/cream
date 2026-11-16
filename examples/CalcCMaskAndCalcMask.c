@@ -87,8 +87,13 @@ void createWindow()
 	
 	SetRect( &rect, WLEFT, WTOP, WLEFT + WWIDTH, WTOP + WHEIGHT );
 	
+#ifdef NO_COLOR_QUICKDRAW
+	gWindow = NewWindow( 0L, &rect, "\pCalc-C-Mask", true, documentProc,
+							(WindowPtr)-1L, true, 0L );
+#else
 	gWindow = NewCWindow( 0L, &rect, "\pCalc-C-Mask", true, documentProc,
 							(WindowPtr)-1L, true, 0L );
+#endif
 							
 	SetPort( gWindow );
 }
@@ -205,7 +210,7 @@ Rect *bounds;
 		{
 			/* Allocation failed; deallocate the port. */
 			ClosePort( newPort );
-			DisposPtr( (Ptr)newPort );
+			DisposePtr( (Ptr)newPort );
 			newPort = nil;
 		}
 	}
@@ -218,8 +223,8 @@ void DisposeGrafPort( doomedPort )		/* Originally written by Forrest Tanaka. */
 GrafPtr doomedPort;
 {
 	ClosePort( doomedPort );
-	DisposPtr( doomedPort->portBits.baseAddr );
-	DisposPtr( (Ptr)doomedPort );
+	DisposePtr( doomedPort->portBits.baseAddr );
+	DisposePtr( (Ptr)doomedPort );
 }
 
 void doEventLoop()

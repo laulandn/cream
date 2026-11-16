@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include	<Resources.h>
 #include	<Sound.h>
 #include	<Events.h>
@@ -14,6 +17,10 @@ int main(int argc,char **argv)
 	SndCommand		mycmd;
 	
 	SoundData = GetResource ('snd ', 128);
+	if(!SoundData) {
+	  fprintf(stderr,"Couldn't get sound resource!\n"); fflush(stderr);
+	  exit(5);
+	}
 	if (ResError() != noErr || SoundData == nil)
 		Debugger();
 	HLock (SoundData);

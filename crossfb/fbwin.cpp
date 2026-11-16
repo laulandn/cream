@@ -38,7 +38,7 @@ struct cross_display *open_cross_display(void *a,unsigned int w, unsigned int h,
   fprintf(stderr,"open_cross_display %d x %d x %d\n",w,h,d); fflush(stderr);
   dis=(struct cross_display *)calloc(sizeof(struct cross_display),1);
   if(!dis) {
-    fprintf(stderr,"No dis!\n");
+    fprintf(stderr,"No dis!\n"); fflush(stderr);
     exit(5);
   }
   if(!w) { w=512;}
@@ -48,7 +48,24 @@ struct cross_display *open_cross_display(void *a,unsigned int w, unsigned int h,
   fprintf(stderr,"(NOTE: MACINTOSH is set!)\n"); fflush(stderr);
   w=qd.screenBits.bounds.right-qd.screenBits.bounds.left;
   h=qd.screenBits.bounds.bottom-qd.screenBits.bounds.top;
-  // TODO: Get real depth here...
+#ifdef NO_COLOR_QUICKDRAW
+  d=1;
+#else
+/*
+  GDHandle gDev=GetMainDevice();
+  if(!gDev) {
+    fprintf(stderr,"No gDev!\n"); fflush(stderr);
+    exit(5);
+  }
+  PixMapHandle gdpm=(**gDev).gdPMap;
+  if(!gdpm) {
+    fprintf(stderr,"No gdpm!\n"); fflush(stderr);
+    exit(5);
+  }
+  d=(**gdpm).pixelSize;
+  */
+  d=4;
+#endif
 #endif
   dis->width=w;
   dis->height=h;
@@ -61,16 +78,15 @@ struct cross_display *open_cross_display(void *a,unsigned int w, unsigned int h,
     fprintf(stderr,"This program only works on a MacCP!\n");
     exit(5);
   }
+  if((w!=512)||(h!=342)/*||(d!=1)*/) {
+    fprintf(stderr,"Your video mode isn't set correctly, can't run!\n");
+    exit(5);
+  }
   // TODO: Blast the real pixels into slowhand's here...
   for(int ix=0; ix<16; ix++) {
     PaletteSet(15-ix, gColorPalette[15-ix]);
   }
   ModeSet(1); // now in color.
-#endif
-#ifdef MACINTOSH
-  fbPixels=qd.thePort->portBits.baseAddr;
-  // TODO: Don't hard code this
-  fbRowBytes=128; // ScreenBits.rowBytes<<1;
 #endif
   fbWidth=w; fbHeight=h; fbDepth=d;
   // NOTE: This assumes chunky pixels
@@ -81,10 +97,21 @@ struct cross_display *open_cross_display(void *a,unsigned int w, unsigned int h,
     case 8: fbMinBlit=1; fbMaxBlit=1; break;
     case 15: fbMinBlit=1; fbMaxBlit=2; break;  // Really 16
     case 16: fbMinBlit=1; fbMaxBlit=2; break;
-    case 24: fbMinBlit=1; fbMaxBlit=3; break;
+    case 24: fbMinBlit=1; fbMaxBlit=3; break;  // Probably really 32
     case 32: fbMinBlit=1; fbMaxBlit=4; break;
     default:
       break;
+  }
+#ifdef MACINTOSH
+  fbPixels=qd.screenBits.baseAddr;
+#endif
+  if(fbMinBlit==1) {
+    // 8 bits or higher
+    fbRowBytes=w*fbMaxBlit;
+  }
+  else {
+    // less than 8 bits
+    fbRowBytes=w/fbMinBlit;  // Is this right?
   }
   fbPixelByteSize=fbWidth*fbRowBytes;
   //

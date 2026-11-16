@@ -88,6 +88,10 @@ pascal short DRVROpen(CntrlParam *ctlPB, DCtlPtr dCtl)
 	 * visible = false, behind = -1, goAway = true, refCon = 0
 	 */
 	myWindow = (WindowPeek)GetNewWindow(((Globals *)(*dCtl->dCtlStorage))->rsrcID, nil, (WindowPtr) -1);
+	if(!myWindow) {
+	  fprintf(stderr,"Couldn't get window resource!\n"); fflush(stderr);
+	  exit(5);
+	}
 	/*
 	 * Set windowKind to the DA refNum, which is negative.
 	 */

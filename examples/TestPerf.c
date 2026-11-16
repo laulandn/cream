@@ -17,7 +17,7 @@
 #include	<Perf.h>
 #endif // PERFORMANCE
 
-#include	<Quickdraw.h>
+#include	<MyQuickdraw.h>
 #include	<stdio.h>
 
 

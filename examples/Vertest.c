@@ -6,7 +6,7 @@
 /*______________________________________________________*/
 
 #include	<CType.h>
-#include	<Quickdraw.h>
+#include	<MyQuickdraw.h>
 #include	<Windows.h>
 #include	<OSUtils.h>
 #include	<Controls.h>
@@ -28,7 +28,7 @@
 #include	<StdIO.h>
 #include	<math.h>
 
-extern _DataInit();
+//extern _DataInit();
 
 #define	TRUE			0xFF
 #define	FALSE			0
@@ -167,7 +167,7 @@ void doCommand(mResult)
 			if (theItem == aboutMeCommand)
 				showAboutMeDialog();
 			else {
-				GetItem(mymenu0, theItem, daName);
+				GetMenuItemText(mymenu0, theItem, daName);
 				GetPort(&savePort);
 				(void) OpenDeskAcc(daName);
 				SetPort(savePort);
@@ -211,7 +211,7 @@ void init()
 {
 	RgnHandle		tempRgn;
 	
-	UnloadSeg(_DataInit);
+	//UnloadSeg(_DataInit);
 	InitGraf(&qd.thePort);
 	FlushEvents(everyEvent, 0);
 	InitWindows();
@@ -285,8 +285,13 @@ void init()
 			break;
 		}
 	
+#ifdef NO_COLOR_QUICKDRAW
+	myWindow = NewWindow(nil, &BaseRect, "", TRUE, zoomDocProc, 
+							(WindowPtr) -1, TRUE, 150);
+#else
 	myWindow = NewCWindow(nil, &BaseRect, "", TRUE, zoomDocProc, 
 							(WindowPtr) -1, TRUE, 150);
+#endif
 	SetPort((WindowPtr) myWindow);
 	DrawGrowIcon (myWindow);
 
@@ -297,7 +302,7 @@ void init()
 /*                    Set menus                         */
 /*______________________________________________________*/
 	mymenu0 = GetMenu(appleID);
-	AddResMenu(mymenu0, 'DRVR');
+	AppendResMenu(mymenu0, 'DRVR');
 	InsertMenu(mymenu0,0);
 	mymenu1 = newmenu(129,"File");
 	appendmenu(mymenu1,"Start;Quit");

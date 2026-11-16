@@ -7,7 +7,7 @@
 /*                       08/15/90                       */
 /*______________________________________________________*/
 
-#include	<Quickdraw.h>
+#include	<MyQuickdraw.h>
 #include	<Windows.h>
 #include	<Events.h>
 #include 	<Gestalt.h>
@@ -17,7 +17,7 @@
 #include	<Packages.h>
 #include <NumberFormatting.h>
 
-extern _DataInit();
+//extern _DataInit();
 
 #define	TRUE			0xFF
 #define	FALSE			0
@@ -85,7 +85,7 @@ void init()
 	OSErr				err;
 	long				feature;
 
-	UnloadSeg(_DataInit);
+	//UnloadSeg(_DataInit);
 	InitGraf(&qd.thePort);
 	FlushEvents(everyEvent, 0);
 	InitWindows();
@@ -117,8 +117,13 @@ else
 /*______________________________________________________*/
 	mycolors = GetCTable (clutID);
 
+#ifdef NO_COLOR_QUICKDRAW
+	myWindow = NewWindow(nil, &BaseRect, "\pUsing Palette Manager", TRUE, documentProc, 
+							(WindowPtr) -1, TRUE, 150);
+#else
 	myWindow = NewCWindow(nil, &BaseRect, "\pUsing Palette Manager", TRUE, documentProc, 
 							(WindowPtr) -1, TRUE, 150);
+#endif
 	SetPort((WindowPtr) myWindow);
 
 	srcPalette = NewPalette (numcolor, mycolors, pmAnimated, 0x1500);

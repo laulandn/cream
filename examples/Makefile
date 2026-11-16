@@ -6,6 +6,7 @@
 
 #CFLAGS=-nostdinc 
 CFLAGS+=-I../CIncludes -I../slowhand -D_LATITUDE_=1
+#CFLAGS=-I../real
 
 LDFLAGS=-L.. -lslowhand -ltoolbox -lcrossnull -lm
 
@@ -20,7 +21,7 @@ OBJS=$(subst .c,.o,$(wildcard *.c)) $(subst .cpp,.o,$(wildcard *.cpp))
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 
-all: $(OBJS) SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest
+all: $(OBJS) SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM Rotate PaletteAnimation GiMeDaPaletteAndSound LaunchWithDoc VoxII CopyMask
 
 
 SillyBalls:	SillyBalls.o
@@ -71,14 +72,73 @@ TestPerf:	TestPerf.o
 #	$(CXX) -o TestPerf $(OBJS) $(LDFLAGS)
 #	../xcoff2app.sh TestPerf
 
-
 MPWTest:	MPWTest.o
 	$(CXX) -o MPWTest MPWTest.o $(LDFLAGS)
 #	../bin2app.sh MPWTest
 #	$(CXX) -o MPWTest $(OBJS) $(LDFLAGS)
 #	../xcoff2app.sh MPWTest
 
+DoubleBuffer:	DoubleBuffer.o
+	$(CXX) -o DoubleBuffer DoubleBuffer.o $(LDFLAGS)
+	../bin2app.sh DoubleBuffer
+#	$(CXX) -o MPWTest $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh MPWTest
+
+SndForEver:	SndForEver.o
+	$(CXX) -o SndForEver SndForEver.o $(LDFLAGS)
+	../bin2app.sh SndForEver
+#	$(CXX) -o SndForEver $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh SndForEver
+
+TestGestaltQD:	TestGestaltQD.o
+	$(CXX) -o TestGestaltQD TestGestaltQD.o $(LDFLAGS)
+	../bin2app.sh TestGestaltQD
+#	$(CXX) -o TestGestaltQD $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh TestGestaltQD
+
+TestGestaltVM:	TestGestaltVM.o
+	$(CXX) -o TestGestaltVM TestGestaltVM.o $(LDFLAGS)
+	../bin2app.sh TestGestaltVM
+#	$(CXX) -o TestGestaltVM $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh TestGestaltVM
+
+Rotate:	Rotate.o
+	$(CXX) -o Rotate Rotate.o $(LDFLAGS)
+	../bin2app.sh Rotate
+#	$(CXX) -o Rotate $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh Rotate
+
+PaletteAnimation:	PaletteAnimation.o
+	$(CXX) -o PaletteAnimation PaletteAnimation.o $(LDFLAGS)
+	../bin2app.sh PaletteAnimation
+#	$(CXX) -o PaletteAnimation $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh PaletteAnimation
+
+GiMeDaPaletteAndSound:	GiMeDaPaletteAndSound.o
+	$(CXX) -o GiMeDaPaletteAndSound GiMeDaPaletteAndSound.o $(LDFLAGS)
+	../bin2app.sh GiMeDaPaletteAndSound
+#	$(CXX) -o GiMeDaPaletteAndSound $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh GiMeDaPaletteAndSound
+
+LaunchWithDoc:	LaunchWithDoc.o
+	$(CXX) -o LaunchWithDoc LaunchWithDoc.o $(LDFLAGS)
+	../bin2app.sh LaunchWithDoc
+#	$(CXX) -o LaunchWithDoc $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh LaunchWithDoc
+
+VoxII:	VoxII.o
+	$(CXX) -o VoxII VoxII.o $(LDFLAGS)
+	../bin2app.sh VoxII
+#	$(CXX) -o VoxII $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh VoxII
+
+CopyMask:	CopyMask.o
+	$(CXX) -o CopyMask CopyMask.o $(LDFLAGS)
+	../bin2app.sh CopyMask
+#	$(CXX) -o CopyMask $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh CopyMask
+
 
 clean:
 	rm -f *.o *.bin *.pef *.APPL *.dsk *.gdb 
-	rm -f SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest
+	rm -f SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM Rotate PaletteAnimation GiMeDaPaletteAndSound LaunchWithDoc VoxII CopyMask

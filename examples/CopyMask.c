@@ -17,6 +17,7 @@
 #include	<Devices.h>
 #include	<Processes.h>
 #include	<Fonts.h>
+#include	<Sound.h>
 #include	<QDOffscreen.h>
 
 
@@ -55,7 +56,11 @@ int main(int argc, char **argv)
 	/* Define output window. */
 	SetRect(&windRect, 100, 100, 400, 400);
 	SetRect(&offRect, 0, 0, 300, 300);
+#ifdef NO_COLOR_QUICKDRAW
+	mainWinPtr = NewWindow(nil, &windRect, "\pJohn", true, documentProc, (WindowPtr) -1, false, 0);
+#else
 	mainWinPtr = NewCWindow(nil, &windRect, "\pJohn", true, documentProc, (WindowPtr) -1, false, 0);
+#endif
 	SetPort(mainWinPtr);
 	GetGWorld(&oldPort, &oldDevice);
 

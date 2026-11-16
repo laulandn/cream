@@ -15,7 +15,7 @@
 /* C.K. Haun */
 /* Apple DTS */
 #include <Dialogs.h>
-#include <QuickDraw.h>
+#include <MyQuickdraw.h>
 #include <Windows.h>
 #include <Menus.h>
 #include <Fonts.h>

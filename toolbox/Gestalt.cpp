@@ -9,6 +9,9 @@ extern "C" {
 #include <Errors.h>
 
 
+#include "../crossroads.h"
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // Gestalt
 ////////////////////////////////////////////////////////////////////////////////
@@ -16,8 +19,9 @@ extern "C" {
 
 OSErr Gestalt(OSType selector, long *response)
 {
-  fprintf(stderr,"(Gestalt)\n");
-  if(!response) { fprintf(stderr,"Gestalt() response is NULL!\n"); exit(EXIT_FAILURE); }
+  open_libs(0,NULL);  // Because this might be called before anything else...
+  fprintf(stderr,"(Gestalt)\n"); fflush(stderr);
+  if(!response) { fprintf(stderr,"Gestalt() response is NULL!\n"); fflush(stderr);  exit(EXIT_FAILURE); }
   OSErr ret=gestaltUndefSelectorErr;  // gestaltUnknownErr or gestaltUndefSelectorErr?
   char s[5];
   bool done=FALSE;
@@ -31,7 +35,7 @@ OSErr Gestalt(OSType selector, long *response)
     fprintf(stderr,"Gestalt \"");
     fprintf(stderr,"%s",s);
     fprintf(stderr,"\" called...");
-    fprintf(stderr,"ignoring.\n");
+    fprintf(stderr,"ignoring.\n"); fflush(stderr);
     *response=0;
   }
   return ret;

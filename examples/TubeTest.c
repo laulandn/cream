@@ -143,7 +143,7 @@
 
 #include <Types.h>
 #include <Memory.h>
-#include <Quickdraw.h>
+#include <MyQuickdraw.h>
 #include <Palettes.h>
 #include <Fonts.h>
 #include <Windows.h>
@@ -230,7 +230,11 @@ int main(void)
 	/*
 	**	Open the color window.
 	*/
+#ifdef NO_COLOR_QUICKDRAW
+	myWindow = GetNewWindow(windowID, nil, (WindowPtr) -1);
+#else
 	myWindow = GetNewCWindow(windowID, nil, (WindowPtr) -1);
+#endif
 	if(!myWindow) {
 	  fprintf(stderr,"Couldn't get window resource!\n"); fflush(stderr);
 	  exit(5);

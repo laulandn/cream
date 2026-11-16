@@ -133,7 +133,7 @@ SillyBalls
 
 #include <Types.h>
 #include <Memory.h>
-#include <Quickdraw.h>
+#include <MyQuickdraw.h>
 #include <Fonts.h>
 #include <Events.h>
 #include <Menus.h>
@@ -230,8 +230,13 @@ void Initialize(void)
   //myCarbon_printrect("SillyLines windRect ",&windRect);
   
 	InsetRect(&windRect, 50, 50);
+#ifdef NO_COLOR_QUICKDRAW
+	mainPtr = NewWindow(nil, &windRect, "\pBo3b Land", true, documentProc, 
+						(WindowPtr) -1, false, 0);
+#else
 	mainPtr = NewCWindow(nil, &windRect, "\pBo3b Land", true, documentProc, 
 						(WindowPtr) -1, false, 0);
+#endif
 		
 	SetPort(mainPtr);						/* set window to current graf port */
 	TextSize(BobSize);						/* smaller font for drawing. */

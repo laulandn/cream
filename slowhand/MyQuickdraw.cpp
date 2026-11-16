@@ -256,7 +256,10 @@ void __initPixMap(PixMap *pm)
   if(the_cross_display) { pm->bounds.right=the_cross_display->width; pm->bounds.bottom=the_cross_display->height; }
   else fprintf(stderr,"no the_cross_display!!!!\n");
   if(the_cross_window) { pm->bounds.right=the_cross_window->width; pm->bounds.bottom=the_cross_window->height; }
-  else fprintf(stderr,"no the_cross_window!!!\n");
+  else {
+    // NOTE: If called before a window is opened this is normal...
+    fprintf(stderr,"NOTE: no the_cross_window!!!\n");
+  }
   //
 #ifdef DEBUG
   __printrect("__initPixMap pm->bounds",&pm->bounds);
@@ -298,7 +301,10 @@ void __syncGrafPortAndCGrafPort(CGrafPort *cgp)
   if(the_cross_display) { gp->portBits.bounds.right=the_cross_display->width; gp->portBits.bounds.bottom=the_cross_display->height; }
   else fprintf(stderr,"no the_cross_display!!!\n");
   if(the_cross_window) { gp->portBits.bounds.right=the_cross_window->width; gp->portBits.bounds.bottom=the_cross_window->height; }
-  else fprintf(stderr,"no the_cross_window!!!\n");
+  else {
+    // NOTE: If called before a window is opened this is normal...
+    fprintf(stderr,"NOTE: no the_cross_window!!!\n");
+  }
   //
 #ifdef DEBUG
   __printrect("__syncGrafPortAndCGrafPort gp->portBits.bounds",&gp->portBits.bounds);
@@ -355,7 +361,10 @@ void __initGrafPort(GrafPort *gp)
   if(the_cross_display) { gp->portBits.bounds.right=the_cross_display->width; gp->portBits.bounds.bottom=the_cross_display->height; }
   else fprintf(stderr,"no the_cross_display!!!\n");
   if(the_cross_window) { gp->portBits.bounds.right=the_cross_window->width; gp->portBits.bounds.bottom=the_cross_window->height; }
-  else fprintf(stderr,"no the_cross_window!!!\n");
+  else {
+    // NOTE: If called before a window is opened this is normal...
+    fprintf(stderr,"NOTE: no the_cross_window!!!\n");
+  }
   //
 #ifdef DEBUG
   __printrect("__initGrafPort gp->portBits.bounds",&gp->portBits.bounds);
@@ -414,7 +423,10 @@ void __initCGrafPort(CGrafPort *cgp)
   if(the_cross_display) { cgp->portRect.right=the_cross_display->width; cgp->portRect.bottom=the_cross_display->height; }
   else fprintf(stderr,"no the_cross_display!!!\n");
   if(the_cross_window) { cgp->portRect.right=the_cross_window->width; cgp->portRect.bottom=the_cross_window->height; }
-  else fprintf(stderr,"no the_cross_window!!!\n");
+  else {
+    // NOTE: If called before a window is opened this is normal...
+    fprintf(stderr,"NOTE: no the_cross_window!!!\n");
+  }
   //
 #ifdef DEBUG
   __printrect("__initCGrafPort cgp->portRect",&cgp->portRect);
@@ -481,7 +493,10 @@ void __initGDevice(GDevice *gd)
   if(the_cross_display) { gd->gdRect.right=the_cross_display->width; gd->gdRect.bottom=the_cross_display->height; }
   else fprintf(stderr,"no the_cross_display!!!\n");
   if(the_cross_window) { gd->gdRect.right=the_cross_window->width; gd->gdRect.bottom=the_cross_window->height; }
-  else fprintf(stderr,"no the_cross_window!!!\n");
+  else {
+    // NOTE: If called before a window is opened this is normal...
+    fprintf(stderr,"NOTE: no the_cross_window!!!\n");
+  }
   //
 #ifdef DEBUG
   __printrect("__initGDevice gd->gdRect",&gd->gdRect);
@@ -676,6 +691,13 @@ _SH_FUNK void EraseRect(const Rect *r)
 {
   if(!r) { fprintf(stderr,"EraseRect() r is NULL!\n"); exit(EXIT_FAILURE); }
   fprintf(stderr,"EraseRect() not implemented!\n");
+}
+
+
+_SH_FUNK void FrameRect(const Rect *r)
+{
+  if(!r) { fprintf(stderr,"FrameRect() r is NULL!\n"); exit(EXIT_FAILURE); }
+  fprintf(stderr,"FrameRect() not implemented!\n");
 }
 
 
@@ -921,6 +943,14 @@ _SH_FUNK PicHandle GetPicture(short pictureID)
 {
   fprintf(stderr,"GetPicture() not implemented!\n");
   return 0;
+}
+
+
+_SH_FUNK void DrawPicture(
+  PicHandle     myPicture,
+  const Rect *  dstRect)
+{
+  fprintf(stderr,"DrawPicture() not implemented!\n");
 }
 
 

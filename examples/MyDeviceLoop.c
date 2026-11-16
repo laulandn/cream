@@ -70,8 +70,13 @@ void createWindow()
 	Rect rect;
 	
 	SetRect( &rect, WLEFT, WTOP, WLEFT + WWIDTH, WTOP + WHEIGHT );
+#ifdef NO_COLOR_QUICKDRAW
+	gWindow = NewWindow( 0L, &rect, "\pMyDeviceLoop", true, documentProc,
+							(WindowPtr)-1L, true, 0L );						
+#else
 	gWindow = NewCWindow( 0L, &rect, "\pMyDeviceLoop", true, documentProc,
 							(WindowPtr)-1L, true, 0L );						
+#endif
 	SetPort( gWindow );
 	
 	TextFont( times );

@@ -8,7 +8,7 @@
 #else
 
 #include <stdio.h>
-#include <Quickdraw.h>
+#include <MyQuickdraw.h>
 #include <MacWindows.h>
 #include <TextEdit.h>
 #include <Dialogs.h>
@@ -22,7 +22,7 @@ extern void InitFonts();
 
 
 #define GetWindowPort(w) w
-QDGlobals qd;
+//QDGlobals qd;
 
 #endif
 
@@ -280,7 +280,7 @@ void SetUpMenus()
 	MenuHandle myMenus[3];
 	myMenus[appleM] = GetMenu(appleID);
 #if !TARGET_API_MAC_CARBON
-	AddResMenu(myMenus[appleM],'DRVR');
+	AppendResMenu(myMenus[appleM],'DRVR');
 #endif
 	myMenus[appleM] = GetMenu(appleID);
 	myMenus[fileM] = GetMenu(fileID);

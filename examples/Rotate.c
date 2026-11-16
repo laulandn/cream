@@ -5,6 +5,7 @@
 #include	<Devices.h>
 #include	<Processes.h>
 #include	<Fonts.h>
+#include	<Sound.h>
 #include	<QDOffscreen.h>
 
 
@@ -80,8 +81,8 @@ rotate()
 	}
 	
 	/* remove src bitmap (portbits for offscreen port) */
-	DisposPtr((Ptr)macBitMap->baseAddr);
-	DisposPtr((Ptr)macBitMap);
+	DisposePtr((Ptr)macBitMap->baseAddr);
+	DisposePtr((Ptr)macBitMap);
 	
 	/* store new src in object */
 	macBitMap   = (BitMap *)newBitmap;

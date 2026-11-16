@@ -5,7 +5,7 @@
 /*                       09/02/87                       */
 /*______________________________________________________*/
 
-#include	<Quickdraw.h>
+#include	<MyQuickdraw.h>
 #include	<Windows.h>
 #include	<Memory.h>
 #include	<Menus.h>
@@ -15,7 +15,7 @@
 #include	<Sound.h>
 #include	<ToolUtils.h>
 
-extern _DataInit();
+//extern _DataInit();
 
 #define	TRUE			0xFF
 #define	FALSE			0
@@ -137,7 +137,7 @@ void doCommand(mResult)
 			if (theItem == aboutMeCommand)
 				showAboutMeDialog();
 			else {
-				GetItem(mymenu0, theItem, daName);
+				GetMenuItemText(mymenu0, theItem, daName);
 				GetPort(&savePort);
 				(void) OpenDeskAcc(daName);
 				SetPort(savePort);
@@ -181,7 +181,7 @@ void doCommand(mResult)
 /*______________________________________________________*/
 void init()
 {
-	UnloadSeg(_DataInit);
+	//UnloadSeg(_DataInit);
 	InitGraf(&qd.thePort);
 	FlushEvents(everyEvent, 0);
 	InitMenus();
@@ -191,7 +191,7 @@ void init()
 /*                    Set menus                         */
 /*______________________________________________________*/
 	mymenu0 = GetMenu(appleID);
-	AddResMenu(mymenu0, 'DRVR');
+	AppendResMenu(mymenu0, 'DRVR');
 	InsertMenu(mymenu0,0);
 	mymenu1 = newmenu(129,"File");
 	appendmenu(mymenu1,"Start;-;Print;-;Quit");

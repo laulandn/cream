@@ -1,0 +1,19 @@
+
+all:
+#	make -C slowhand -f Makefile.r68ppc
+#	make -C toolbox -f Makefile.r68ppc
+#	make -C crossnull -f Makefile.r68ppc
+#	make -C crossfb -f Makefile.r68ppc
+#	make -C crossmac -f Makefile.r68ppc
+#	make -C crossx11 -f Makefile.r68ppc
+	make -i -C examples -f Makefile.r68ppc
+	
+clean:
+	make -C slowhand -f Makefile.r68ppc clean
+	make -C toolbox -f Makefile.r68ppc clean
+	make -C crossnull -f Makefile.r68ppc clean
+	make -C crossfb -f Makefile.r68ppc clean
+	make -C crossmac -f Makefile.r68ppc clean
+	make -C crossx11 -f Makefile.r68ppc clean
+	make -C examples -f Makefile.r68ppc clean
+	rm -f */*.o */*.a *.a

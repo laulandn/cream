@@ -32,7 +32,7 @@
 	ToolBox header files
 */
 #include <Types.h>
-#include <QuickDraw.h>
+#include <MyQuickdraw.h>
 #include <Resources.h>
 #include <Windows.h>
 #include <Fonts.h>
@@ -214,7 +214,7 @@ SetupMenus()
 	SetMenuBar(menuBarHndl);					// install menus
 	DisposHandle(menuBarHndl);
 	
-	AddResMenu(GetMHandle(kAppleMenu), 'DRVR');		// add DA names to Apple menu
+	AppendResMenu(GetMHandle(kAppleMenu), 'DRVR');		// add DA names to Apple menu
 	
 	DrawMenuBar();
 }
@@ -492,7 +492,7 @@ short whichItem;
 {
 	Str255 daName;
 	
-	GetItem(GetMHandle(whichMenu), whichItem, daName);
+	GetMenuItemText(GetMHandle(whichMenu), whichItem, daName);
 		
 	(void) OpenDeskAcc(daName);
 }
@@ -514,7 +514,10 @@ NewLevelWindow()
 		gLevelWindow = GetNewCWindow(128, nil, (WindowPtr)-1);
 	else
 		gLevelWindow = GetNewWindow(128, nil, (WindowPtr)-1);
-		
+	if(!gLevelWindow) {
+	  fprintf(stderr,"Couldn't get window resource!\n"); fflush(stderr);
+	  exit(5);
+	}
 	SetPort(gLevelWindow);
 	
 	// load the offset resource that tells us if the user has dragged

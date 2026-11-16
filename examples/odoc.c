@@ -8,14 +8,14 @@
 #include <AppleEvents.h>
 #include <Aliases.h>
 
-void main(void);
+int main(void);
 void InitStuff(void);
 OSErr GetTargetAddress(Str255 prompt,Str255 appStr,PortInfoRec *myPortInfo,
 						AEAddressDesc *targetAddress,TargetID *toTargetID);
 OSErr SendODOC(AEAddressDesc *targetAddress,AliasHandle targetFile);
 Boolean GetFileToOpen(FSSpec *target);
 
-void main(void)
+int main(void)
 {
 	PortInfoRec portInfo;
 	AEAddressDesc targetAddress;

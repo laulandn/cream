@@ -44,7 +44,7 @@
 #include <Dialogs.h>
 #include <OSUtils.h>
 #include <QDOffscreen.h>
-#include <QuickDraw.h>
+#include <MyQuickdraw.h>
 #include <Resources.h>
 #include <Script.h>
 #include <ToolUtils.h>
@@ -113,8 +113,13 @@ void createWindow()
 	
 	SetRect( &wBounds, WLEFT, WTOP, WLEFT + WWIDTH, WTOP + WHEIGHT );
 	
+#ifdef NO_COLOR_QUICKDRAW
+	gWindow = NewWindow( 0L, &wBounds, "\pSnapshot Test", false, documentProc,
+							(WindowPtr)-1L, true, 0L );
+#else
 	gWindow = NewCWindow( 0L, &wBounds, "\pSnapshot Test", false, documentProc,
 							(WindowPtr)-1L, true, 0L );
+#endif
 							
 	SetRect( &gBounds, 0, 0, gWindow->portRect.right - gWindow->portRect.left,
 					gWindow->portRect.bottom - gWindow->portRect.top );

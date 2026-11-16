@@ -90,7 +90,7 @@
 #include <Menus.h>
 #include <OSUtils.h>
 #include <QDOffscreen.h>
-#include <Quickdraw.h>
+#include <MyQuickdraw.h>
 #include <Script.h>
 #include <ToolUtils.h>
 #include <Windows.h>
@@ -550,6 +550,10 @@ CreateDemoWindow ()
 			aWindow = GetNewCWindow (rDemoWindID, windStore, (WindowPtr) -1);
 		else
 			aWindow = GetNewWindow (rDemoWindID, windStore, (WindowPtr) -1);
+	if(!aWindow) {
+	  fprintf(stderr,"Couldn't get window resource!\n"); fflush(stderr);
+	  exit(5);
+	}
 
 		if (aWindow != nil)
 			{
@@ -565,7 +569,7 @@ CreateDemoWindow ()
 			SetPort (aWindow);
 			}
 		else
-			DisposPtr (windStore);
+			DisposePtr (windStore);
 		}
 	return aWindow;
 	}

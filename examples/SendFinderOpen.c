@@ -14,7 +14,7 @@
 #include <memory.h>
 #include <Packages.h>
 #include <Errors.h>
-#include <quickdraw.h>
+#include <MyQuickdraw.h>
 #include <fonts.h>
 #include <Dialogs.h>
 #include <windows.h>

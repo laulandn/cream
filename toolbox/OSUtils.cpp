@@ -24,9 +24,11 @@ void SysBeep(short l) {
 }
 
 
-OSErr SysEnvirons(short n, SysEnvRec *e) {
-  fprintf(stderr,"(SysEnvirons)\n");
-  if(!e) { fprintf(stderr,"SysEnvirons() e is NULL!\n"); exit(EXIT_FAILURE); }
+OSErr SysEnvirons(short n, SysEnvRec *e) 
+{
+  open_libs(0,NULL);  // Because this might be called before anything else...
+  fprintf(stderr,"(SysEnvirons)\n"); fflush(stderr);
+  if(!e) { fprintf(stderr,"SysEnvirons() e is NULL!\n");  fflush(stderr); exit(EXIT_FAILURE); }
   e->environsVersion=curSysEnvVers;
   e->machineType=envMachUnknown;
   e->systemVersion=0x0700;
@@ -51,14 +53,16 @@ void GetDateTime(unsigned long *secs)
 extern pascal UniversalProcPtr GetToolTrapAddress(UInt16 trapNum)
 //UniversalProcPtr GetToolTrapAddress(SInt16 trapNum)
 {
-  fprintf(stderr,"GetToolTrapAddress() not implemented!\n");
+  open_libs(0,NULL);  // Because this might be called before anything else...
+  fprintf(stderr,"GetToolTrapAddress() not implemented!\n"); fflush(stderr);
   return NULL;
 }
 
 
 UniversalProcPtr NGetTrapAddress(UInt16 trapNum, TrapType tTyp)
 {
-  fprintf(stderr,"NGetTrapAddress() not implemented!\n");
+  open_libs(0,NULL);  // Because this might be called before anything else...
+  fprintf(stderr,"NGetTrapAddress() not implemented!\n"); fflush(stderr);
   return NULL;
 }
 

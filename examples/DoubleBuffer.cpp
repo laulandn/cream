@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include	<Resources.h>
 #include	<Sound.h>
 #include	<Memory.h>
@@ -31,6 +34,10 @@ Handle					SoundData;
 LocalVars				myVars;
 
 SoundData = GetResource ('snd ', 100);
+	if(!SoundData) {
+	  fprintf(stderr,"Couldn't get sound resource!\n"); fflush(stderr);
+	  exit(5);
+	}
 if (ResError() != noErr || SoundData == nil)
 	Debugger();
 HLock (SoundData);

@@ -8,7 +8,7 @@
 /*______________________________________________________*/
 
 #include	<CType.h>
-#include	<Quickdraw.h>
+#include	<MyQuickdraw.h>
 #include	<Windows.h>
 #include	<Dialogs.h>
 #include	<Events.h>
@@ -25,7 +25,7 @@
 #include	<StdIO.h>
 #include	<QDOffscreen.h>
 
-extern _DataInit();
+//extern _DataInit();
 
 #define pmInhibitG2		0x0100
 #define pmInhibitC2		0x0200
@@ -316,7 +316,7 @@ void doCommand(mResult)
 			if (theItem == aboutMeCommand)
 				showAboutMeDialog();
 			else {
-				GetItem(mymenu0, theItem, daName);
+				GetMenuItemText(mymenu0, theItem, daName);
 				GetPort(&savePort);
 				(void) OpenDeskAcc(daName);
 				SetPort(savePort);
@@ -400,7 +400,7 @@ void init()
 	CGrafPtr			SavePort;
 	RGBColor			black = {0,0,0}, White = {65535,65535,65535};
 
-	UnloadSeg(_DataInit);
+	//UnloadSeg(_DataInit);
 	InitGraf(&qd.thePort);
 	FlushEvents(everyEvent, 0);
 	InitWindows();
@@ -450,8 +450,14 @@ if (DoneFlag == FALSE) {
 	mycolors = GetCTable (clutID);
 	(*mycolors)->ctFlags |= 0x4000;
 
+#ifdef NO_COLOR_QUICKDRAW
+	myWindow = NewWindow(nil, &BaseRect, "", TRUE, zoomDocProc, 
+							(WindowPtr) -1, TRUE, 150);
+#else
 	myWindow = NewCWindow(nil, &BaseRect, "", TRUE, zoomDocProc, 
 							(WindowPtr) -1, TRUE, 150);
+#endif
+
 	SetGWorld((CGrafPtr)myWindow, SaveGD);
 	DrawGrowIcon (myWindow);
 
@@ -474,7 +480,7 @@ if (DoneFlag == FALSE) {
 /*                    Set menus                         */
 /*______________________________________________________*/
 	mymenu0 = GetMenu(appleID);
-	AddResMenu(mymenu0, 'DRVR');
+	AppendResMenu(mymenu0, 'DRVR');
 	InsertMenu(mymenu0,0);
 	mymenu1 = GetMenu(129);
 	InsertMenu(mymenu1,0);

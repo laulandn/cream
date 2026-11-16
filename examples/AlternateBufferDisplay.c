@@ -92,7 +92,7 @@ void init()
 
 	/*	Set up menus.	*/
 	mymenu0 = GetMenu(appleID);
-	AddResMenu(mymenu0, 'DRVR');
+	AppendResMenu(mymenu0, 'DRVR');
 	InsertMenu(mymenu0,0);
 	mymenu1 = GetMenu(fileID);
 	InsertMenu(mymenu1,0);
@@ -116,8 +116,13 @@ void init()
 
 	/*	Open window and set up picture.	*/
 	GetGWorld (&SavePort, &SaveGD);
+#ifdef NO_COLOR_QUICKDRAW
+	myWindow = NewWindow(nil, &BaseRect, "", TRUE, zoomDocProc, 
+							(WindowPtr) -1, TRUE, 150);
+#else
 	myWindow = NewCWindow(nil, &BaseRect, "", TRUE, zoomDocProc, 
 							(WindowPtr) -1, TRUE, 150);
+#endif
 	SetGWorld((CGrafPtr)myWindow, SaveGD);
 	DrawGrowIcon (myWindow);
 
@@ -159,7 +164,7 @@ void doCommand(mResult)
 			if (theItem == aboutMeCommand)
 				showAboutMeDialog();
 			else {
-				GetItem(mymenu0, theItem, daName);
+				GetMenuItemText(mymenu0, theItem, daName);
 				GetPort(&savePort);
 				(void) OpenDeskAcc(daName);
 				SetPort(savePort);

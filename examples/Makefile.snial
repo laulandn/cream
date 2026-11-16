@@ -6,6 +6,7 @@ CXX=m68k-apple-macos-g++
 
 CFLAGS=-include override.h
 CFLAGS+=-I../slowhand -DNO_QD_TRAPS=1
+#CFLAGS=-I../real
 
 LDFLAGS=-L.. ../crossfb/*.o ../slowhand/*.o -lm
 
@@ -20,7 +21,7 @@ OBJS=$(subst .c,.o,$(wildcard *.c)) $(subst .cpp,.o,$(wildcard *.cpp))
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 
-all: $(OBJS) SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM
+all: $(OBJS) SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM Rotate PaletteAnimation GiMeDaPaletteAndSound LaunchWithDoc VoxII CopyMask
 
 
 SillyBalls:	SillyBalls.o
@@ -83,6 +84,12 @@ DoubleBuffer:	DoubleBuffer.o
 #	$(CXX) -o DoubleBuffer $(OBJS) $(LDFLAGS)
 #	../xcoff2app.sh DoubleBuffer
 
+BufferPlay:	BufferPlay.o
+	$(CXX) -o BufferPlay.code.bin BufferPlay.o $(LDFLAGS)
+	../bin2app.sh BufferPlay
+#	$(CXX) -o BufferPlay $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh DoubleBuffer
+
 SndForEver:	SndForEver.o
 	$(CXX) -o SndForEver.code.bin SndForEver.o $(LDFLAGS)
 	../bin2app.sh SndForEver
@@ -101,7 +108,43 @@ TestGestaltVM:	TestGestaltVM.o
 #	$(CXX) -o TestGestaltVM $(OBJS) $(LDFLAGS)
 #	../xcoff2app.sh TestGestaltVM
 
+Rotate:	Rotate.o
+	$(CXX) -o Rotate.code.bin Rotate.o $(LDFLAGS)
+	../bin2app.sh Rotate
+#	$(CXX) -o Rotate $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh Rotate
+
+PaletteAnimation:	PaletteAnimation.o
+	$(CXX) -o PaletteAnimation.code.bin PaletteAnimation.o $(LDFLAGS)
+	../bin2app.sh PaletteAnimation
+#	$(CXX) -o PaletteAnimation $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh PaletteAnimation
+
+GiMeDaPaletteAndSound:	GiMeDaPaletteAndSound.o
+	$(CXX) -o GiMeDaPaletteAndSound.code.bin GiMeDaPaletteAndSound.o $(LDFLAGS)
+	../bin2app.sh GiMeDaPaletteAndSound
+#	$(CXX) -o GiMeDaPaletteAndSound $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh GiMeDaPaletteAndSound
+
+LaunchWithDoc:	LaunchWithDoc.o
+	$(CXX) -o LaunchWithDoc.code.bin LaunchWithDoc.o $(LDFLAGS)
+	../bin2app.sh LaunchWithDoc
+#	$(CXX) -o LaunchWithDoc $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh LaunchWithDoc
+
+VoxII:	VoxII.o
+	$(CXX) -o VoxII.code.bin VoxII.o $(LDFLAGS)
+	../bin2app.sh VoxII
+#	$(CXX) -o VoxII $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh VoxII
+
+CopyMask:	CopyMask.o
+	$(CXX) -o CopyMask.code.bin CopyMask.o $(LDFLAGS)
+	../bin2app.sh CopyMask
+#	$(CXX) -o CopyMask $(OBJS) $(LDFLAGS)
+#	../xcoff2app.sh CopyMask
+
 
 clean:
 	rm -f *.o *.bin *.pef *.APPL *.dsk *.gdb 
-	rm -f SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM
+	rm -f SillyBalls MWSillyBalls TubeTest LinesSilly maclines Count Sample TestPerf MPWTest DoubleBuffer SndForEver TestGestaltQD TestGestaltVM Rotate PaletteAnimation GiMeDaPaletteAndSound LaunchWithDoc VoxII CopyMask

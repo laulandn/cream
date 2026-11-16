@@ -185,8 +185,8 @@ void Initialize(void)
 	OSErr		error;
 	SysEnvRec	theWorld;
 
-  freopen ("stdout.txt", "w", stdout);
-  freopen ("stderr.txt", "w", stderr);
+  //freopen ("stdout.txt", "w", stdout);
+  //freopen ("stderr.txt", "w", stderr);
 	
 	/*
 	**	Test the computer to be sure we can do color.  
@@ -223,8 +223,13 @@ void Initialize(void)
 	*/
 	windRect = qd.screenBits.bounds;
 	InsetRect(&windRect, 50, 50);
+#ifdef NO_COLOR_QUICKDRAW
+	mainPtr = NewWindow(nil, &windRect, (ConstStr255Param)"\pBo3b Land", true, documentProc, 
+						(WindowPtr) -1, false, 0);
+#else
 	mainPtr = NewCWindow(nil, &windRect, (ConstStr255Param)"\pBo3b Land", true, documentProc, 
 						(WindowPtr) -1, false, 0);
+#endif
 		
 	SetPort(mainPtr);						/* set window to current graf port */
 	TextSize(BobSize);						/* smaller font for drawing. */

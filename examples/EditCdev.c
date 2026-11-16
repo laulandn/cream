@@ -31,7 +31,7 @@
 
 #include <Types.h>
 #include <Memory.h>
-#include <Quickdraw.h>
+#include <MyQuickdraw.h>
 #include <TextEdit.h>
 #include <Dialogs.h>
 #include <Events.h>

@@ -73,7 +73,7 @@
 
 #include <Types.h>
 #include <Resources.h>
-#include <Quickdraw.h>
+#include <MyQuickdraw.h>
 #include <Fonts.h>
 #include <Events.h>
 #include <Windows.h>
@@ -752,6 +752,10 @@ void Initialize(void)
 	window = (WindowPtr) NewPtr(sizeof(WindowRecord));
 	if ( window == nil ) AlertUser();
 	window = GetNewWindow(rWindow, (Ptr) window, (WindowPtr) -1);
+	if(!window) {
+	  fprintf(stderr,"Couldn't get window resource!\n"); fflush(stderr);
+	  exit(5);
+	}
 	
 	menuBar = GetNewMBar(rMenuBar);			/* read menus into menu bar */
 	if ( menuBar == nil ) AlertUser();

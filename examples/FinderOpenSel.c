@@ -10,7 +10,7 @@
 #include <memory.h>
 #include <Packages.h>
 #include <Errors.h>
-#include <quickdraw.h>
+#include <MyQuickdraw.h>
 #include <fonts.h>
 #include <Dialogs.h>
 #include <windows.h>
@@ -284,7 +284,7 @@ void DoDaCall(MenuHandle themenu, long theit)
 {
     long qq;
     char DAname[255];
-    GetItem(themenu, theit, &DAname);
+    GetMenuItemText(themenu, theit, &DAname);
     qq = OpenDeskAcc(DAname);
 }
 
@@ -451,6 +451,10 @@ pascal OSErr AEOpenHandler(AppleEvent *messagein, AppleEvent *reply, long refIn)
     /* except open our window */
     
     myWindow = GetNewWindow(kMyWindowResID, nil, (WindowPtr)-1);
+	if(!myWindow) {
+	  fprintf(stderr,"Couldn't get window resource!\n"); fflush(stderr);
+	  exit(5);
+	}
     return(noErr);
 }
 
@@ -809,7 +813,7 @@ void InitalizeApp(void)
     gFileMenuHandle = GetMHandle(kFileMenu);
     gEditMenuHandle = GetMHandle(kEditMenu);
     gToolMenuHandle = GetMHandle(kToolsMenu);
-    AddResMenu(gAppleMenuHandle, 'DRVR');
+    AppendResMenu(gAppleMenuHandle, 'DRVR');
     /* now install my Help menu item in the Help Manager's menu */
     HMGetHelpMenuHandle(&helpHandle);                       /* Get the Hlpe menu handle */
     count = CountMItems(helpHandle);                        /* How many items are there? */

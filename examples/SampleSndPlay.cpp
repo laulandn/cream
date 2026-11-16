@@ -1,4 +1,4 @@
-#include	<Quickdraw.h>
+#include	<MyQuickdraw.h>
 #include	<Windows.h>
 #include	<Dialogs.h>
 #include	<Events.h>

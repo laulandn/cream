@@ -970,6 +970,10 @@ void DoNew(void)
 	storage = NewPtr(sizeof(DocumentRecord));
 	if ( storage != nil ) {
 		window = GetNewWindow(rDocWindow, storage, (WindowPtr) -1);
+	if(!window) {
+	  fprintf(stderr,"Couldn't get window resource!\n"); fflush(stderr);
+	  exit(5);
+	}
 		if ( window != nil ) {
 			gNumDocuments += 1;			/* this will be decremented when we call DoCloseWindow */
 			good = false;

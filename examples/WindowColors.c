@@ -89,8 +89,13 @@ void createWindow()
 	WindowPtr	window;
 	
 	SetRect( &rect, WLEFT, WTOP, WLEFT + WWIDTH, WTOP + WHEIGHT );
+#ifdef NO_COLOR_QUICKDRAW
+	window = NewWindow( 0L, &rect, "\pDefault Window Colors", true, documentProc,
+							(WindowPtr)-1L, true, 0L );						
+#else
 	window = NewCWindow( 0L, &rect, "\pDefault Window Colors", true, documentProc,
 							(WindowPtr)-1L, true, 0L );						
+#endif
 	SetPort( window );
 	
 	TextFont( geneva );
